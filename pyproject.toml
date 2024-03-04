@@ -8,7 +8,10 @@ packages = [{include = "openai_fine_tuning_validate", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
+click = "^8.1.7"
 
+[tool.poetry.scripts]
+openai-fine-tuning-validate = "openai_fine_tuning_validate:main"
 
 [build-system]
 requires = ["poetry-core"]
