@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "openai-fine-tuning-validate"
+version = "0.1.0"
+description = ""
+authors = ["Goto Hayato <gh640@hey.com>"]
+readme = "README.md"
+packages = [{include = "openai_fine_tuning_validate", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
