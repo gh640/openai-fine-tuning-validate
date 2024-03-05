@@ -1,3 +1,5 @@
+[![Tests and style check](https://github.com/gh640/openai-fine-tuning-validate/actions/workflows/tests.yml/badge.svg)](https://github.com/gh640/openai-fine-tuning-validate/actions/workflows/tests.yml)
+
 # `openai-fine-tuning-validate`
 
 A simple script to validate datasets for OpenAI fine tuning. 
