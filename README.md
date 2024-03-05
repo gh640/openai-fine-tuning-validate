@@ -9,7 +9,32 @@ A simple script to validate datasets for OpenAI fine tuning.
 - `gpt-3.5-turbo-0613`
 
 > [!CAUTION]
-> `babbage-002` and `davinci-002` use a different format and we cannot validate datasets for them.
+> `babbage-002` and `davinci-002` use a different format and we cannot validate datasets for them with this script.
+
+## Prerequiresites
+
+- Python `>=3.12`
+- Poetry `>=1.8.1`
+
+## Usage
+
+Checkout the repository.
+
+```bash
+git clone https://github.com/gh640/openai-fine-tuning-validate
+```
+
+Install dependencies with Poetry.
+
+```bash
+poetry install
+```
+
+Run `openai-fine-tuning-validate` command in a venv Poetry manages.
+
+```bash
+poetry run openai-fine-tuning-validate [dataset-file]
+```
 
 ## Reference
 
