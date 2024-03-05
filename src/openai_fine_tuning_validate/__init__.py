@@ -14,8 +14,7 @@ import click
 @click.argument("dataset_file", type=click.Path(exists=True), required=True)
 def main(dataset_file: str):
     """Main function"""
-    dataset_lines = Path(dataset_file).read_text(encoding="utf-8").splitlines()
-    dataset = [json.loads(line) for line in dataset_lines]
+    dataset = load_dataset(dataset_file)
 
     if not dataset:
         click.echo("Dataset is empty", err=True)
@@ -28,10 +27,17 @@ def main(dataset_file: str):
     result = validate_dataset(dataset)
 
     if result:
-        pprint(dict(result))
+        pprint(result)
         sys.exit(1)
 
     click.echo("Dataset is valid")
+
+
+def load_dataset(dataset_file: str) -> list[dict]:
+    """Load a dataset from a file."""
+    dataset_lines = Path(dataset_file).read_text(encoding="utf-8").splitlines()
+    dataset = [json.loads(line) for line in dataset_lines]
+    return dataset
 
 
 def validate_dataset(dataset: list[dict]) -> dict[str, int]:
@@ -79,4 +85,4 @@ def validate_dataset(dataset: list[dict]) -> dict[str, int]:
         if not any(message.get("role", None) == "assistant" for message in messages):
             format_errors["example_missing_assistant_message"] += 1
 
-    return format_errors
+    return dict(format_errors)

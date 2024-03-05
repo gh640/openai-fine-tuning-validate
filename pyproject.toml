@@ -4,11 +4,14 @@ version = "0.1.0"
 description = ""
 authors = ["Goto Hayato <gh640@hey.com>"]
 readme = "README.md"
-packages = [{include = "openai_fine_tuning_validate", from = "src"}]
+packages = [{ include = "openai_fine_tuning_validate", from = "src" }]
 
 [tool.poetry.dependencies]
 python = "^3.12"
 click = "^8.1.7"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.1.0"
 
 [tool.poetry.scripts]
 openai-fine-tuning-validate = "openai_fine_tuning_validate:main"
