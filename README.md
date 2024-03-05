@@ -43,6 +43,38 @@ Run `openai-fine-tuning-validate` command in a venv Poetry manages.
 poetry run openai-fine-tuning-validate [dataset-file]
 ```
 
+### Sample outputs
+
+Valid samples:
+
+```bash
+poetry run openai-fine-tuning-validate tests/data/dataset-1-simple.jsonl
+# => Dataset is valid
+```
+
+```bash
+poetry run openai-fine-tuning-validate tests/data/dataset-2-multi-turn.jsonl
+# => Dataset is valid
+```
+
+Invalid samples:
+
+```bash
+echo '{}' >> invalid.jsonl
+poetry run openai-fine-tuning-validate invalid.jsonl
+# => {'missing_messages_list': 1}
+```
+
+```bash
+echo '{"messages": [{"role": "unknown"}]}' > invalid.jsonl
+poetry run openai-fine-tuning-validate invalid.jsonl
+# =>
+# {'example_missing_assistant_message': 1,
+#  'message_missing_key': 1,
+#  'missing_content': 1,
+#  'unrecognized_role': 1}
+```
+
 ## Reference
 
 - [Fine-tuning - OpenAI API](https://platform.openai.com/docs/guides/fine-tuning/preparing-your-dataset)
