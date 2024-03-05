@@ -29,23 +29,40 @@ class Test_validate_dataset:
         result = validate_dataset([dataset_line])
         assert result == {"data_type": 1}
 
-    @pytest.mark.parametrize("dataset_line", [{}, {"prompt": "xyz"}, {"completion": "xyz"}])
+    @pytest.mark.parametrize(
+        "dataset_line", [{}, {"prompt": "xyz"}, {"completion": "xyz"}]
+    )
     def test_missing_messages_invalid(self, dataset_line):
         result = validate_dataset([dataset_line])
         assert result == {"missing_messages_list": 1}
 
-    @pytest.mark.parametrize(["dataset_line", "count"], [
-        [{"messages": [{"content": "Hello"}]}, 1],
-        [{"messages": [{"content": "Hello"}, {"content": "Hi!"}]}, 2],
-    ])
+    @pytest.mark.parametrize(
+        ["dataset_line", "count"],
+        [
+            [{"messages": [{"content": "Hello"}]}, 1],
+            [{"messages": [{"content": "Hello"}, {"content": "Hi!"}]}, 2],
+        ],
+    )
     def test_missing_role_invalid(self, dataset_line, count):
         result = validate_dataset([dataset_line])
         assert result["message_missing_key"] == count
 
-    @pytest.mark.parametrize(["dataset_line", "count"], [
-        [{"messages": [{"role": "system"}, {"role": "user"}]}, 2],
-        [{"messages": [{"role": "system"}, {"role": "user"}, {"role": "assistant"}]}, 3],
-    ])
+    @pytest.mark.parametrize(
+        ["dataset_line", "count"],
+        [
+            [{"messages": [{"role": "system"}, {"role": "user"}]}, 2],
+            [
+                {
+                    "messages": [
+                        {"role": "system"},
+                        {"role": "user"},
+                        {"role": "assistant"},
+                    ]
+                },
+                3,
+            ],
+        ],
+    )
     def test_missing_content_invalid(self, dataset_line, count):
         result = validate_dataset([dataset_line])
         assert result["message_missing_key"] == count
@@ -69,29 +86,44 @@ class Test_validate_dataset:
         result = validate_dataset([{"messages": [{"role": role_value}]}])
         assert result["unrecognized_role"] == 1
 
-    @pytest.mark.parametrize(["dataset_line", "count"], [
-         [{"messages": [{}]}, 1],
-         [{"messages": [{"content": None}]}, 1],
-         [{"messages": [{"content": "", "function_call": "xyz"}, {"con": "xyz"}]}, 1],
-         [{"messages": [{"function_call": "xyz"}, {"con": "xyz"}]}, 2],
-    ])
+    @pytest.mark.parametrize(
+        ["dataset_line", "count"],
+        [
+            [{"messages": [{}]}, 1],
+            [{"messages": [{"content": None}]}, 1],
+            [
+                {"messages": [{"content": "", "function_call": "xyz"}, {"con": "xyz"}]},
+                1,
+            ],
+            [{"messages": [{"function_call": "xyz"}, {"con": "xyz"}]}, 2],
+        ],
+    )
     def test_missing_content_value_invalid(self, dataset_line, count):
         result = validate_dataset([dataset_line])
         assert result["missing_content"] == count
 
-    @pytest.mark.parametrize("dataset_line", [
-        {
-             "messages": [
-                 {"role": "user", "content": "Please write a blog post about ChatGPT."},
-             ],
-        },
-        {
-             "messages": [
-                 {"role": "system", "content": "You are a good writer."}, 
-                 {"role": "user", "content": "Please write a blog post about ChatGPT."},
-             ],
-        },
-    ])
+    @pytest.mark.parametrize(
+        "dataset_line",
+        [
+            {
+                "messages": [
+                    {
+                        "role": "user",
+                        "content": "Please write a blog post about ChatGPT.",
+                    },
+                ],
+            },
+            {
+                "messages": [
+                    {"role": "system", "content": "You are a good writer."},
+                    {
+                        "role": "user",
+                        "content": "Please write a blog post about ChatGPT.",
+                    },
+                ],
+            },
+        ],
+    )
     def test_missing_assistant_message_invalid(self, dataset_line):
         result = validate_dataset([dataset_line])
         assert result["example_missing_assistant_message"] == 1

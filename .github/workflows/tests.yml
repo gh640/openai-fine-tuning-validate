@@ -1,4 +1,4 @@
-name: Tests
+name: Tests and style check
 
 on:
   push:
@@ -14,11 +14,12 @@ on:
 env:
   PYTHON_VERSION: "3.12"
   POETRY_VERSION: "1.8.2"
+  POETRY_NO_INTERACTION: 1
   POETRY_VIRTUALENVS_CREATE: false
 
 jobs:
-  tests:
-    name: Run tests with pytest
+  tests_n_style_check:
+    name: Run tests with pytest and check styles with ruff
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -39,3 +40,8 @@ jobs:
         id: poetry_install
       - name: Run Tests
         run: pytest 
+      - name: Check code style with Ruff
+        run: |
+          ruff check .
+          ruff format --check --diff .
+        if: steps.poetry_install.outcome == 'success'
