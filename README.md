@@ -2,6 +2,11 @@
 
 A simple script to validate datasets for OpenAI fine tuning. 
 
+The validator function was blatantly copied from the OpenAI Cookbook.
+
+- [Data preparation and analysis for chat model fine-tuning | OpenAI Cookbook](https://cookbook.openai.com/examples/chat_finetuning_data_prep)
+- [openai-cookbook/examples/Chat_finetuning_data_prep.ipynb at b6aeae9bbabe624cd5d766cc96c9a187235dbbda · openai/openai-cookbook](https://github.com/openai/openai-cookbook/blob/b6aeae9bbabe624cd5d766cc96c9a187235dbbda/examples/Chat_finetuning_data_prep.ipynb)
+
 ## Target models
 
 - `gpt-3.5-turbo-0125`
@@ -39,4 +44,5 @@ poetry run openai-fine-tuning-validate [dataset-file]
 ## Reference
 
 - [Fine-tuning - OpenAI API](https://platform.openai.com/docs/guides/fine-tuning/preparing-your-dataset)
+- [Data preparation and analysis for chat model fine-tuning | OpenAI Cookbook](https://cookbook.openai.com/examples/chat_finetuning_data_prep)
 
