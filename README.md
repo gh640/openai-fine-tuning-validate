@@ -21,7 +21,7 @@ The validator function was blatantly copied from the OpenAI Cookbook.
 ## Prerequiresites
 
 - Python `>=3.12`
-- Poetry `>=1.8.1`
+- [Poetry](https://python-poetry.org/) `>=1.8.1`
 
 ## Usage
 
