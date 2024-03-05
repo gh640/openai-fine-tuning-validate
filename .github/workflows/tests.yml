@@ -1,0 +1,47 @@
+name: Tests and style check
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'README.md'
+  pull_request:
+    paths-ignore:
+      - 'README.md'
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION: "3.12"
+  POETRY_VERSION: "1.8.2"
+  POETRY_NO_INTERACTION: 1
+  POETRY_VIRTUALENVS_CREATE: false
+
+jobs:
+  tests_n_style_check:
+    name: Run tests with pytest and check styles with ruff
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Install Poetry ${{ env.POETRY_VERSION }}
+        run: |
+          curl -sSL ${{ env.POETRY_URL }} | \
+            python - --version ${{ env.POETRY_VERSION }}
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+        env:
+          POETRY_URL: https://install.python-poetry.org
+      - name: Install Dependencies
+        run: poetry install
+        id: poetry_install
+      - name: Run Tests
+        run: pytest 
+      - name: Check code style with Ruff
+        run: |
+          ruff check .
+          ruff format --check --diff .
+        if: steps.poetry_install.outcome == 'success'
