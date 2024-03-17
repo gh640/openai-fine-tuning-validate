@@ -18,7 +18,7 @@ The validator function was blatantly copied from the OpenAI Cookbook.
 > [!CAUTION]
 > `babbage-002` and `davinci-002` use a different format and we cannot validate datasets for them with this script.
 
-## Prerequiresites
+## Prerequisites
 
 - Python `>=3.12`
 - [Poetry](https://python-poetry.org/) `>=1.8.1`
